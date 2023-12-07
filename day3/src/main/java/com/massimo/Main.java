@@ -11,7 +11,7 @@ public class Main {
     public static List<Point> numericCoordinate = new ArrayList<>();
     public static List<Point> symbolIndexes = new ArrayList<>();
     public static List<Number> numbers = new ArrayList<>();
-    public static List<Point> gears = new ArrayList<>();
+    public static List<Point> stars = new ArrayList<>();
     public static List<Integer> gearRatios = new ArrayList<>();
     public static char[][] engine;
 
@@ -26,13 +26,45 @@ public class Main {
             engine = buildEngine(reader);
             findSymbolIndexes();
             findNumber();
-            findGears();
+            findStars();
             System.out.println(symbolIndexes.toString());
             System.out.println(sumNumberAdjacentToSymbol());
+            System.out.println(findGearRatios());
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static int findGearRatios() {
+        int count = 0;
+        List<Number> gearNumbers;
+        for(Point star : stars) {
+            gearNumbers = new ArrayList<>();
+            for(Number number : numbers) {
+                if(starIsAdjacentToNumber(number.getIndexes(), star)) {
+                    gearNumbers.add(number);
+                }
+            }
+            int gearRatios = 1;
+            if(gearNumbers.size() >= 2) {
+                for(Number num : gearNumbers) {
+                    gearRatios *= num.getValue();
+                }
+            }
+            count += gearRatios;
+        }
+        return count;
+    }
+
+
+    public static boolean starIsAdjacentToNumber(List<Point> numberIndexes, Point star) {
+        for(Point coordinate : numberIndexes) {
+            if(coordinate.isAdjacent(star)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static int sumNumberAdjacentToSymbol() {
@@ -66,11 +98,11 @@ public class Main {
         }
     }
 
-    public static void findGears() {
+    public static void findStars() {
         for (int i = 0; i < engine.length; i++) {
             for(int j = 0; j < engine[i].length ; j++) {
                 if(isGear(engine[i][j])) {
-                    gears.add(new Point(i,j));
+                    stars.add(new Point(i,j));
                 }
             }
         }
