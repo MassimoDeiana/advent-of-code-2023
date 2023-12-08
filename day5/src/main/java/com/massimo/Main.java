@@ -16,12 +16,29 @@ public class Main {
             File file = new File("day5/src/main/resources/input.txt");
             Scanner reader = new Scanner(file);
             readInput(reader);
-            System.out.println(findMinLocation());
+            System.out.println(findMinLocationPartTwo());
 
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Long findMinLocationPartTwo() {
+        for(int i = 0; i <seeds.size(); i+=2) {
+            Long seed = seeds.get(i);
+            Long range = seeds.get(i+1);
+            for(Long j = seed; j < seed+range; seed++) {
+                locations.add(findLocation(j));
+            }
+        }
+        Long min = Long.valueOf(999999999);
+        for(Long location : locations) {
+            if(location < min){
+                min = location;
+            }
+        }
+        return min;
     }
 
     public static Long findMinLocation() {

@@ -2,15 +2,12 @@ package com.massimo;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 public class Almanac {
 
-    private Map<String, List<AlmanacItem>> map = new HashMap<>() {{
+    private Map<String, List<AlmanacItem>> map = new LinkedHashMap<>() {{
         put("seed-to-soil map:", new ArrayList<>());
         put("soil-to-fertilizer map:", new ArrayList<>());
         put("fertilizer-to-water map:", new ArrayList<>());
