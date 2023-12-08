@@ -45,6 +45,9 @@ public class Main {
                 if(starIsAdjacentToNumber(number.getIndexes(), star)) {
                     gearNumbers.add(number);
                 }
+                if(gearNumbers.size() == 2) {
+                    break;
+                }
             }
             int gearRatios = 1;
             if(gearNumbers.size() >= 2) {
