@@ -19,10 +19,6 @@ public class Main {
             System.out.println(getTotalPoints());
             updateNumberOfCards();
             System.out.println(getTotalOfCards());
-            var firstResult = 0;
-            var secondResult = 0;
-
-
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
